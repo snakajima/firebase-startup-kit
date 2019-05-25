@@ -8,8 +8,8 @@ import Grid from '@material-ui/core/Grid';
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    padding: theme.spacing.unit,
-    paddingTop: theme.spacing.unit*10,
+    padding: theme.spacing(1),
+    paddingTop: theme.spacing(10),
   },
   caption: {
     textAlign: "center",

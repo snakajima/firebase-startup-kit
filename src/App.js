@@ -8,13 +8,42 @@ import About from './About';
 import Login from './Login';
 import Decoder from './Decoder';
 import * as firebase from "firebase/app";
+import "firebase/firestore";
 import config from './config';
 
 firebase.initializeApp(config);
 var db = firebase.firestore();
 
 class App extends React.Component {
-  state = {user:null};
+  constructor(props) {
+    super(props);
+    this.state = { user:null, width:0, height:0 };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+  componentDidMount() {
+      this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
+          (user) => {
+            this.setState({user: user});
+            if (user) {
+              //console.log("user:", user);
+              db.collection("users").doc(user.uid).set({
+                name:user.displayName
+              }, { merge: true });
+            }
+          }
+      );
+      this.updateWindowDimensions();
+      window.addEventListener('resize', this.updateWindowDimensions);
+  }
+    
+  componentWillUnmount() {
+    this.unregisterAuthObserver();
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
+
   render() {
     const params = {};
     return (

@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
     root: {
-      marginTop: theme.spacing.unit * 10,
+      marginTop: theme.spacing.unit(10),
     },
 });
 const Processing = props => {
