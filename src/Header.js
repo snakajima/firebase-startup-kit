@@ -7,12 +7,17 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
 import { Link } from 'react-router-dom';
 import * as firebase from "firebase/app";
 import "firebase/auth";
-
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import HomeIcon from '@material-ui/icons/Home';
+import InfoIcon from '@material-ui/icons/Info';
 
 
 const styles = {
@@ -30,14 +35,14 @@ const styles = {
 
 class MyAppBar extends React.Component {
   state = {
-      anchorEl: null
+      drawer: false,
   };
   handleMenu = event => {
-    this.setState({ anchorEl: event.currentTarget });
+    this.setState({drawer:true});
   };
 
   handleClose = () => {
-    this.setState({ anchorEl: null });
+    this.setState({drawer:false});
   };
   logout = event => {
     console.log("logout");
@@ -46,8 +51,6 @@ class MyAppBar extends React.Component {
 
 render() {
     const { classes, user, login } = this.props;
-    const { anchorEl } = this.state;
-    const open = Boolean(anchorEl);
 
     return (
       <div className={classes.root}>
@@ -56,23 +59,6 @@ render() {
             <IconButton className={classes.menuButton} onClick={this.handleMenu} color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
-            <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={open}
-                  onClose={this.handleClose}
-                >
-                  <MenuItem onClick={this.handleClose} to="/" component={Link}>Home</MenuItem>
-                  <MenuItem onClick={this.handleClose} to="/about" component={Link}>About</MenuItem>
-            </Menu>            
             <Typography variant="h6" color="inherit" className={classes.grow}>
               Firebase Rocks!
             </Typography>
@@ -83,6 +69,19 @@ render() {
             }
           </Toolbar>
         </AppBar>
+        <Drawer open={this.state.drawer} onClose={this.handleClose}>
+          <List>
+            <ListItem button to="/" component={Link}>
+              <ListItemIcon><HomeIcon /></ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItem>
+            <Divider />
+            <ListItem button to="/about" component={Link}>
+              <ListItemIcon><InfoIcon /></ListItemIcon>
+              <ListItemText primary="About" />
+            </ListItem>
+          </List>
+        </Drawer>
       </div>
     );
   }
