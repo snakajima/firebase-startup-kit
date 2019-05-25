@@ -26,16 +26,12 @@ class App extends React.Component {
           this.setState({user: user});
           if (user) {
             const refUser = db.collection("users").doc(user.uid);
-            await refUser.set({
-              lastAccessed:firebase.firestore.FieldValue.serverTimestamp(), 
-            }, { merge: true });
-            const data = (await refUser.get()).data();
-            console.log(data);
-            if (!data.name) {
-              await refUser.set({
-                name:user.displayName
-              }, { merge: true });
+            var newValue = { lastAccessed:firebase.firestore.FieldValue.serverTimestamp() };
+            const doc = (await refUser.get()).data();
+            if (!doc || !doc.name) {
+              newValue.name = user.displayName;
             }
+            await refUser.set(newValue, { merge: true });
           }
         }
       );
