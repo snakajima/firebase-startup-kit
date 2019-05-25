@@ -45,19 +45,19 @@ class App extends React.Component {
   }
 
   render() {
-    const params = {};
+    const params = { user:this.state.user, db:db };
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
-          <Route exact path="/" render={(props) => <Home {...props} params={params} />} />
-          <Route exact path="/about" render={(props) => <About {...props} params={params} />} />
-          <Route exact path="/login" render={(props) => <Login {...props} params={params} />} />
-          <Route exact path="/login/cmd/:encoded" render={(props) => <Login {...props} params={params} />} />
-          <Route exact path="/login/target/:target" render={(props) => <Login {...props} params={params} />} />
+          <Route exact path="/" render={(props) => <Home {...props} {...params} />} />
+          <Route exact path="/about" render={(props) => <About {...props} {...params} />} />
+          <Route exact path="/login" render={(props) => <Login {...props} {...params} />} />
+          <Route exact path="/login/cmd/:encoded" render={(props) => <Login {...props} {...params} />} />
+          <Route exact path="/login/target/:target" render={(props) => <Login {...props} {...params} />} />
           { // We need to mount the Decoder component only after the user info became available.
             (this.state.user) ?
-              <Route exact path="/decode/:encoded" render={(props) => <Decoder {...props} params={params} />} />
+              <Route exact path="/decode/:encoded" render={(props) => <Decoder {...props} {...params} />} />
               : "" 
           }
         </Router>

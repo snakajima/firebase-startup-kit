@@ -20,13 +20,12 @@ const uiConfig = {
     // We will display Google and Facebook as auth providers.
     signInOptions: [
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      //firebase.auth.FacebookAuthProvider.PROVIDER_ID,
       //firebase.auth.TwitterAuthProvider.PROVIDER_ID,
     ],
     callbacks: {
       // Avoid redirects after sign-in.
       signInSuccessWithAuthResult: (result) => {
-        console.log(result, firebase.auth.TwitterAuthProvider.PROVIDER_ID);
         const { additionalUserInfo, credential } = result;
         if (additionalUserInfo && credential 
           && credential.providerId === firebase.auth.TwitterAuthProvider.PROVIDER_ID) {
@@ -49,13 +48,13 @@ class Login extends React.Component {
         </React.Fragment>
       }
       const { match } = this.props;
-      const { gameId, target, encoded } = match.params;
+      const { target, encoded } = match.params;
       if (encoded) {
         return <Redirect to={"/decode/"+encoded} />
       } else if (target) {
         return <Redirect to={"/"+target} />
       }
-      return <Redirect to={gameId ? "/play/"+gameId : "/"} />
+      return <Redirect to={"/"} />
     }
 }
 

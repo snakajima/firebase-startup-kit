@@ -12,14 +12,13 @@ class Decoder extends React.Component {
   async componentDidMount() {
     const { user, db, match:{params:{encoded}} } = this.props;
     const params = JSON.parse(decodeURIComponent(encoded));
-    if (params.cmd === "hiscore") {
-      const { gameId, score, moves, url } = params; 
-      const refHighscore = db.collection("users").doc(user.uid)
-                             .collection("freecells").doc(gameId);
-                                
-      await refHighscore.set({
-        score:score, moves:moves, name:user.displayName,
-      }, { merge: true })
+
+    // App specific code should be written here. This is just a sample. 
+    if (params.cmd === "something") {
+      // do something using the data given in params. 
+      const { foo, bar, url } = params; 
+      console.log(foo, bar, user, db); // to eliminate warning 
+      //await do.something();
       this.setState({redirect:url});
     }
   }
