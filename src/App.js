@@ -7,6 +7,11 @@ import Home from './Home';
 import About from './About';
 import Login from './Login';
 import Decoder from './Decoder';
+import * as firebase from "firebase/app";
+import config from './config';
+
+firebase.initializeApp(config);
+var db = firebase.firestore();
 
 class App extends React.Component {
   state = {user:null};
