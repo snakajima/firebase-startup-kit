@@ -32,8 +32,6 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### `firebase deploy`
 
-### 'firebase deploy'
-
-Deploys the app to the Firebase cloud. 
+Deploys the app to the Firebase cloud. You need to run "npm run build" before the deployment.
