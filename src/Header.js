@@ -71,12 +71,10 @@ render() {
                   onClose={this.handleClose}
                 >
                   <MenuItem onClick={this.handleClose} to="/" component={Link}>Home</MenuItem>
-                  <MenuItem onClick={this.handleClose} to="/list" component={Link}>Play</MenuItem>
-                  <MenuItem onClick={this.handleClose} to="/make" component={Link}>Make</MenuItem>
                   <MenuItem onClick={this.handleClose} to="/about" component={Link}>About</MenuItem>
             </Menu>            
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              Tourney Games
+              Firebase Rocks!
             </Typography>
             {
                 (user) ?
