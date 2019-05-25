@@ -11,6 +11,7 @@ This is a start-up kit for a Firebase web project, which uses React.js and Mater
 5. From the dashboard of this project, add an app and choose "web" (</>).
 6. From the setting of this app, choose "Config" (in Firebase SDK snippet)
 7. Copy the config file, and paste into src/config.js file.  
+8. Replace the word "skelton-us" in .firebaserc file with your Firebase project name.
 
 ## Available Scripts
 
