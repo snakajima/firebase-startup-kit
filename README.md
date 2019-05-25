@@ -1,6 +1,6 @@
 ## Purpose
 
-This is a start-up kit for any project, which uses Firebase, React.js and Material-UI.
+This is a start-up kit for a Firebase web project, which uses React.js and Material-UI.
 
 ## Instruction
 
