@@ -22,15 +22,22 @@ class App extends React.Component {
   }
   componentDidMount() {
       this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
-          (user) => {
-            this.setState({user: user});
-            if (user) {
-              //console.log("user:", user);
-              db.collection("users").doc(user.uid).set({
+        async (user) => {
+          this.setState({user: user});
+          if (user) {
+            const refUser = db.collection("users").doc(user.uid);
+            await refUser.set({
+              lastAccessed:firebase.firestore.FieldValue.serverTimestamp(), 
+            }, { merge: true });
+            const data = (await refUser.get()).data();
+            console.log(data);
+            if (!data.name) {
+              await refUser.set({
                 name:user.displayName
               }, { merge: true });
             }
           }
+        }
       );
       this.updateWindowDimensions();
       window.addEventListener('resize', this.updateWindowDimensions);
