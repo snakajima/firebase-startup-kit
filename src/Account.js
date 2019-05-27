@@ -57,6 +57,12 @@ class Account extends React.Component {
     this.setState({label:"Available", indicator:{}});
   }
 
+  async handleUpdate() {
+    console.log("handleUpdate");
+    const res = await fetch("https://us-central1-skelton-us.cloudfunctions.net/helloWorld");
+    console.log(res);
+  }
+
   render() {
     const { classes, user } = this.props;
     if (!user) {
@@ -88,7 +94,8 @@ class Account extends React.Component {
                       onChange = {(e)=>this.handleChange(e.target.value)} />
               </Grid>        
               <Grid>
-              <Button variant="contained" color="primary" className={classes.button}>
+              <Button variant="contained" color="primary" className={classes.button}
+                      onClick = {(e)=>this.handleUpdate(e)}>
                 Update
               </Button>
             </Grid>
