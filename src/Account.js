@@ -20,7 +20,7 @@ const styles = theme => ({
 });
 
 class Account extends React.Component {
-  state = { name: undefined, label: "" };
+  state = { name: undefined, label: "", indicator:{} };
 
   componentDidMount() {
     this.componentDidUpdate();
@@ -35,24 +35,24 @@ class Account extends React.Component {
   }
 
   async handleChange(name) {
-    const { db } = this.props;
+    const { db, user } = this.props;
     this.setState({name:name});
     if (name.length === 0) {
-      this.setState({label:"user name"})
+      this.setState({label:"user name", indicator:{}});
       return;
     }
     if (name.length < 4) {
-      this.setState({label:"Minimum 4 characters"})
+      this.setState({label:"Minimum 4 characters", indicator:{error:true}});
       return;
     }
     const ref = db.collection("usernames").doc(name);
     const doc = await ref.get();
     const data = doc.data();
-    if (data) {
-      this.setState({label:"Not available"})
+    if (data && data.uid !== user.uid) {
+      this.setState({label:"Not available", indicator:{error:true}});
       return;
     }
-    this.setState({label:"Available"})
+    this.setState({label:"Available", indicator:{}});
   }
 
   render() {
@@ -68,7 +68,7 @@ class Account extends React.Component {
             <Typography component="h2" variant="h5" gutterBottom>
               Account Page. 
             </Typography>
-            <TextField label={this.state.label} value={this.state.name || ""}
+            <TextField {...this.state.indicator} label={this.state.label} value={this.state.name || ""}
                     className={classes.textField} margin="normal" 
                     onChange = {(e)=>this.handleChange(e.target.value)} />
             </Grid>

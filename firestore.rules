@@ -3,10 +3,12 @@ service cloud.firestore {
     match /users/{userId} {
       allow read, create, update, delete: if request.auth.uid == userId;
     }
+    match /usernames/{name} {
+      allow read;
+    }
 
     match /{document=**} {
       allow read, write: if false;
     }
   }
 }
-
