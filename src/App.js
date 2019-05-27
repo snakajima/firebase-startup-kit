@@ -10,6 +10,7 @@ import Decoder from './Decoder';
 import * as firebase from "firebase/app";
 import "firebase/firestore";
 import config from './config';
+import Account from './Account';
 
 firebase.initializeApp(config);
 var db = firebase.firestore();
@@ -55,6 +56,7 @@ class App extends React.Component {
         <Router>
           <Route exact path="/" render={(props) => <Home {...props} {...params} />} />
           <Route exact path="/about" render={(props) => <About {...props} {...params} />} />
+          <Route exact path="/acount" render={(props) => <Account {...props} {...params} />} />
           <Route exact path="/login" render={(props) => <Login {...props} {...params} />} />
           <Route exact path="/login/cmd/:encoded" render={(props) => <Login {...props} {...params} />} />
           <Route exact path="/login/target/:target" render={(props) => <Login {...props} {...params} />} />

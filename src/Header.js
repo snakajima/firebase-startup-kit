@@ -18,6 +18,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import InfoIcon from '@material-ui/icons/Info';
+import AccountIcon from '@material-ui/icons/AccountCircle';
 
 
 const styles = {
@@ -74,6 +75,11 @@ render() {
             <ListItem button to="/" component={Link}>
               <ListItemIcon><HomeIcon /></ListItemIcon>
               <ListItemText primary="Home" />
+            </ListItem>
+            <Divider />
+            <ListItem button to="/acount" component={Link}>
+              <ListItemIcon><AccountIcon /></ListItemIcon>
+              <ListItemText primary="Account" />
             </ListItem>
             <Divider />
             <ListItem button to="/about" component={Link}>
