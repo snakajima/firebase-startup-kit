@@ -5,7 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import Header from './Header';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import { Redirect } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+
 
 const styles = theme => ({
   root: {
@@ -58,20 +60,40 @@ class Account extends React.Component {
   render() {
     const { classes, user } = this.props;
     if (!user) {
-      return <Redirect to={"/login"} />
+      return (
+        <React.Fragment>
+        <Header user={user} login="/Login/target/about" />
+        <Grid container justify="center" alignItems="center" direction="row" className={classes.root}>
+          <Grid item className={classes.caption}>
+            <Button variant="contained" color="primary" className={classes.button}component={Link} to="/login/target/account">
+                Login
+            </Button>
+          </Grid>
+        </Grid>
+        </React.Fragment>
+      )
     }
     return (
       <React.Fragment>
         <Header user={user} login="/Login/target/about" />
         <Grid container justify="center" alignItems="center" direction="row" className={classes.root}>
-            <Grid className={classes.caption}>
-            <Typography component="h2" variant="h5" gutterBottom>
-              Account Page. 
-            </Typography>
-            <TextField {...this.state.indicator} label={this.state.label} value={this.state.name || ""}
-                    className={classes.textField} margin="normal" 
-                    onChange = {(e)=>this.handleChange(e.target.value)} />
+          <Grid item>
+            <Grid container direction="row">
+            <Grid item className={classes.caption}>
+              <Typography component="h2" variant="h5" gutterBottom>
+                Account Page. 
+              </Typography>
+              <TextField {...this.state.indicator} label={this.state.label} value={this.state.name || ""}
+                      className={classes.textField} margin="normal" 
+                      onChange = {(e)=>this.handleChange(e.target.value)} />
+              </Grid>        
+              <Grid>
+              <Button variant="contained" color="primary" className={classes.button}>
+                Update
+              </Button>
             </Grid>
+            </Grid>
+          </Grid>
         </Grid>
       </React.Fragment>
     );
