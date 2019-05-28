@@ -1,17 +1,16 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as express from 'express';
+import * as cors from 'cors';
 
 admin.initializeApp();
 
 const app = express();
+app.use(cors());
 
 app.get('/api/1', (request, res) => {
-    const info = {a:1, b:"abc", c:[1,2,3]};
-    res.header("Access-Control-Allow-Origin", "http://localhost:3888");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
-    res.send(JSON.stringify(info));
+    const info = {a:1, b:"abcd", c:[1,2,3]};
+    res.json(info);
 });
 
 app.get('/api/2', (request, res) => {
