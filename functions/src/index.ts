@@ -6,12 +6,19 @@ admin.initializeApp();
 
 const app = express();
 
-app.get('/entry', (request, res) => {
-    console.log("app.entry called")
+app.get('/api', (request, res) => {
+    res.send("Hello from Firebase! 0");
+});
+
+app.get('/api/1', (request, res) => {
+    res.send("Hello from Firebase! 1");
+});
+
+app.get('/api/2', (request, res) => {
     res.send("Hello from Firebase! 2");
 });
 
 // // Start writing Firebase Functions
 // // https://firebase.google.com/docs/functions/typescript
 //
-export const entry = functions.https.onRequest(app);
+export const api = functions.https.onRequest(app);
