@@ -2,7 +2,6 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as express from 'express';
 import * as cors from 'cors';
-import { Transaction } from '@google-cloud/firestore';
 
 admin.initializeApp();
 const app = express();
@@ -13,7 +12,7 @@ app.put('/api/username', async (req, res) => {
     const db = admin.firestore();
     const ref = db.collection("usernames").doc(name);
 
-    const operation = async (tr:Transaction) => {
+    const operation = async (tr:admin.firestore.Transaction) => {
         try {
             const doc = await tr.get(ref);
             const data = doc.data();
