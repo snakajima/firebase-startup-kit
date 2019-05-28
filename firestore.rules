@@ -6,6 +6,9 @@ service cloud.firestore {
     match /usernames/{name} {
       allow read;
     }
+    match /uids/{uid} {
+      allow read;
+    }
 
     match /{document=**} {
       allow read, write: if false;
