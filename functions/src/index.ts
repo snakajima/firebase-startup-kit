@@ -58,6 +58,10 @@ app.use(validateFirebaseIdToken);
 
 app.put('/api/username', async (req:any, res) => {
     const { name } = req.query;
+    if (!name || name.length < 4) {
+        await res.status(400).json({result:"Invalid name"});
+        return
+    }
     const uid:any = req.user.uid;
     const db = admin.firestore();
     const refName = db.collection("usernames").doc(name);
@@ -70,7 +74,7 @@ app.put('/api/username', async (req:any, res) => {
             if (dataName.uid === uid) {
                 await res.json({result:"already have it"});
             } else {
-                await res.json({result:"not available"});
+                await res.status(409).json({result:"not available"});
             }
         } else {
             let message = "got it";
@@ -88,7 +92,7 @@ app.put('/api/username', async (req:any, res) => {
     try {
         await db.runTransaction(operation);
     } catch(err) {
-        res.json({result:"something went wrong"});
+        res.status(500).json({result:"something went wrong"});
     }
 });
 
