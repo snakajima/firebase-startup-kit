@@ -30,10 +30,23 @@ class Account extends React.Component {
   }
 
   componentDidUpdate() {
-    const { user } = this.props;
+    const { user, db } = this.props;
 
     if (user && this.state.name===undefined) {
-      this.handleChange("");
+      const ref = db.collection("uids").doc(user.uid);
+      this.detacher = ref.onSnapshot((doc) => {
+        const data = doc.data();
+        console.log(data);
+        if (data && data.name) {
+          this.setState({name:data.name});
+        }
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.detacher) {
+      this.detacher();
     }
   }
 
