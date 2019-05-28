@@ -10,27 +10,35 @@ app.use(cors());
 app.put('/api/username', async (req, res) => {
     const { name, uid } = req.query;
     const db = admin.firestore();
-    const ref = db.collection("usernames").doc(name);
+    const refName = db.collection("usernames").doc(name);
+    const refUID = db.collection("uids").doc(uid);
 
     const operation = async (tr:admin.firestore.Transaction) => {
-        const doc = await tr.get(ref);
-        const data = doc.data();
-        if (data) {
-            if (data.uid === uid) {
+        const dataName = (await tr.get(refName)).data();
+        const docUID = (await tr.get(refUID)).data();
+        if (dataName) {
+            if (dataName.uid === uid) {
                 await res.json({result:"already have it"});
             } else {
                 await res.json({result:"not available"});
             }
         } else {
-            await tr.set(ref, {uid});
-            await res.json({result:"got it"});
+            var message = "got it";
+            if (docUID && docUID.name) {
+                const refNamePrev = db.collection("names").doc(docUID.name);
+                await tr.delete(refNamePrev)
+                message = "updated it from " + docUID.name;
+            }
+            await tr.set(refName, {uid});
+            await tr.set(refUID, {name});
+            await res.json({result:message});
         }
     }
     
     try {
         await db.runTransaction(operation);
     } catch(err) {
-        // do nothing
+        res.json({result:"something went wrong"});
     }
 });
 
