@@ -25,9 +25,9 @@ app.put('/api/username', async (req, res) => {
         } else {
             var message = "got it";
             if (docUID && docUID.name) {
-                const refNamePrev = db.collection("names").doc(docUID.name);
+                const refNamePrev = db.collection("usernames").doc(docUID.name);
                 await tr.delete(refNamePrev)
-                message = "updated it from " + docUID.name;
+                message = "updated it from:" + docUID.name;
             }
             await tr.set(refName, {uid});
             await tr.set(refUID, {name});
