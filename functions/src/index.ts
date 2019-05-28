@@ -13,27 +13,24 @@ app.put('/api/username', async (req, res) => {
     const ref = db.collection("usernames").doc(name);
 
     const operation = async (tr:admin.firestore.Transaction) => {
-        try {
-            const doc = await tr.get(ref);
-            const data = doc.data();
-            if (data) {
-                if (data.uid === uid) {
-                    await res.json({result:"already have it"});
-                } else {
-                    await res.json({result:"not available"});
-                }
+        const doc = await tr.get(ref);
+        const data = doc.data();
+        if (data) {
+            if (data.uid === uid) {
+                await res.json({result:"already have it"});
             } else {
-                await tr.set(ref, {uid});
-                await res.json({result:"got it"});
+                await res.json({result:"not available"});
             }
-        } catch(err) {
-            // do nothing
+        } else {
+            await tr.set(ref, {uid});
+            await res.json({result:"got it"});
         }
     }
+    
     try {
         await db.runTransaction(operation);
     } catch(err) {
-            // do nothing
+        // do nothing
     }
 });
 
