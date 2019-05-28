@@ -58,6 +58,7 @@ class Account extends React.Component {
   }
 
   async handleUpdate() {
+    const { user } = this.props;
     console.log("handleUpdate");
     //var headers = new Headers();
     //headers.append('pragma', 'no-cache');
@@ -66,7 +67,8 @@ class Account extends React.Component {
     var options = {
       method: 'PUT',
     };
-    const res = await fetch("https://skelton-us.firebaseapp.com/api/username?name=foo&uid=bar", options);
+    const query = "name=" + encodeURIComponent(this.state.name) + "&uid=" + encodeURIComponent(user.uid);
+    const res = await fetch("https://skelton-us.firebaseapp.com/api/username?" + query, options);
     const json = await res.json();
     console.log("res.json()=", json);
   }
