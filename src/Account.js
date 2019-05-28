@@ -66,7 +66,7 @@ class Account extends React.Component {
     var options = {
       method: 'PUT',
     };
-    const res = await fetch("https://skelton-us.firebaseapp.com/api/1", options);
+    const res = await fetch("https://skelton-us.firebaseapp.com/api/username?name=foo&uid=bar", options);
     const json = await res.json();
     console.log("res.json()=", json);
   }

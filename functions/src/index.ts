@@ -8,8 +8,8 @@ admin.initializeApp();
 const app = express();
 app.use(cors());
 
-app.put('/api/1', (request, res) => {
-    const info = {a:1, b:"abcd", c:[1,2,3]};
+app.put('/api/username', (req, res) => {
+    const info = {a:1, b:req.query.name, c:req.query.uid};
     res.json(info);
 });
 
