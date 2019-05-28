@@ -15,6 +15,10 @@
     ],
     "rewrites": [
       {
+        "source": "/entry",
+        "function": "entry"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
