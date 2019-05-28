@@ -72,27 +72,27 @@ app.put('/api/username', async (req:any, res) => {
         const docUID = (await tr.get(refUID)).data();
         if (dataName) {
             if (dataName.uid === uid) {
-                await res.json({result:"already have it"});
+                await res.status(200).json({result:"No change", uid:uid});
             } else {
-                await res.status(409).json({result:"not available"});
+                await res.status(409).json({result:"Already taken", uid:uid});
             }
         } else {
-            let message = "got it";
+            let message = "Registered";
             if (docUID && docUID.name) {
                 const refNamePrev = db.collection("usernames").doc(docUID.name);
                 await tr.delete(refNamePrev)
-                message = "updated it from:" + docUID.name;
+                message = "Updated";
             }
             await tr.set(refName, {uid});
             await tr.set(refUID, {name});
-            await res.json({result:message + " by " + uid});
+            await res.status(201).json({result:message, uid:uid});
         }
     }
     
     try {
         await db.runTransaction(operation);
     } catch(err) {
-        res.status(500).json({result:"something went wrong"});
+        res.status(500).json({result:"something went wrong", uid:uid});
     }
 });
 

@@ -50,6 +50,12 @@ class Account extends React.Component {
     }
     const ref = db.collection("usernames").doc(name);
     const doc = await ref.get();
+    if (name !== this.state.name) {
+      // ASYNC HACK: Ignore if it has been changed already.
+      console.log("async case")
+      return;
+    }
+
     const data = doc.data();
     if (data && data.uid !== user.uid) {
       this.setState({label:"Not available", indicator:{error:true}});
@@ -60,7 +66,8 @@ class Account extends React.Component {
 
   async handleUpdate() {
     console.log("handleUpdate");
-    
+
+    this.setState({label:"Requesting...", indicator:{}});
     const token = await firebase.auth().currentUser.getIdToken();
     var options = {
       method: 'PUT',
@@ -72,9 +79,9 @@ class Account extends React.Component {
     };
     const query = "name=" + encodeURIComponent(this.state.name);
     const res = await fetch("https://skelton-us.firebaseapp.com/api/username?" + query, options);
-    console.log("res.text()=", await res.clone().text());
     const json = await res.json();
     console.log("res.json()=", json);
+    this.setState({label:json.result, indicator:{ error:(res.status >=400) }});
   }
 
   render() {
