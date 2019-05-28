@@ -7,7 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-
+import * as firebase from "firebase/app";
+import "firebase/auth";
 
 const styles = theme => ({
   root: {
@@ -58,17 +59,20 @@ class Account extends React.Component {
   }
 
   async handleUpdate() {
-    const { user } = this.props;
     console.log("handleUpdate");
-    //var headers = new Headers();
-    //headers.append('pragma', 'no-cache');
-    //headers.append('cache-control', 'no-cache');
     
+    const token = await firebase.auth().currentUser.getIdToken();
     var options = {
       method: 'PUT',
+      headers: {
+        Authorization : 'Bearer ' + token,
+        //pragma: 'no-cache',
+        //'cache-control': 'no-cache',
+      },
     };
-    const query = "name=" + encodeURIComponent(this.state.name) + "&uid=" + encodeURIComponent(user.uid);
+    const query = "name=" + encodeURIComponent(this.state.name);
     const res = await fetch("https://skelton-us.firebaseapp.com/api/username?" + query, options);
+    console.log("res.text()=", await res.clone().text());
     const json = await res.json();
     console.log("res.json()=", json);
   }
