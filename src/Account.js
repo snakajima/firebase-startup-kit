@@ -59,13 +59,12 @@ class Account extends React.Component {
 
   async handleUpdate() {
     console.log("handleUpdate");
-    var headers = new Headers();
-    headers.append('pragma', 'no-cache');
-    headers.append('cache-control', 'no-cache');
+    //var headers = new Headers();
+    //headers.append('pragma', 'no-cache');
+    //headers.append('cache-control', 'no-cache');
     
     var options = {
-      method: 'GET',
-      headers: headers,
+      method: 'PUT',
     };
     const res = await fetch("https://skelton-us.firebaseapp.com/api/1", options);
     const json = await res.json();

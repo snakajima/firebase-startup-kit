@@ -8,12 +8,12 @@ admin.initializeApp();
 const app = express();
 app.use(cors());
 
-app.get('/api/1', (request, res) => {
+app.put('/api/1', (request, res) => {
     const info = {a:1, b:"abcd", c:[1,2,3]};
     res.json(info);
 });
 
-app.get('/api/2', (request, res) => {
+app.put('/api/2', (request, res) => {
     res.send("Hello from Firebase! 2");
 });
 
