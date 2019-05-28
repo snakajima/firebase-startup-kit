@@ -77,8 +77,9 @@ class Account extends React.Component {
     this.setState({label:"Available", indicator:{}});
   }
 
-  async handleUpdate() {
+  async handleUpdate(e) {
     console.log("handleUpdate");
+    e.preventDefault();
 
     this.setState({label:"Requesting...", indicator:{}});
     const token = await firebase.auth().currentUser.getIdToken();
@@ -119,20 +120,22 @@ class Account extends React.Component {
         <Grid container justify="center" alignItems="center" direction="row" className={classes.root}>
           <Grid item>
             <Grid container direction="row">
+            <form>
             <Grid item className={classes.caption}>
-              <Typography component="h2" variant="h5" gutterBottom>
-                Account Page. 
-              </Typography>
-              <TextField {...this.state.indicator} label={this.state.label} value={this.state.name || ""}
-                      className={classes.textField} margin="normal" 
-                      onChange = {(e)=>this.handleChange(e.target.value)} />
-              </Grid>        
-              <Grid>
-              <Button variant="contained" color="primary" className={classes.button}
-                      onClick = {(e)=>this.handleUpdate(e)}>
-                Update
-              </Button>
+                <Typography component="h2" variant="h5" gutterBottom>
+                  Account Page. 
+                </Typography>
+                <TextField {...this.state.indicator} label={this.state.label} value={this.state.name || ""}
+                        className={classes.textField} margin="normal" 
+                        onChange = {(e)=>this.handleChange(e.target.value)} />
+                </Grid>        
+                <Grid>
+                <Button variant="contained" color="primary" className={classes.button} type="submit"
+                        onClick = {(e)=>this.handleUpdate(e)}>
+                  Update
+                </Button>
             </Grid>
+            </form>
             </Grid>
           </Grid>
         </Grid>
