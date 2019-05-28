@@ -77,7 +77,7 @@ render() {
               <ListItemText primary="Home" />
             </ListItem>
             <Divider />
-            <ListItem button to="/acount" component={Link}>
+            <ListItem button to="/account" component={Link}>
               <ListItemIcon><AccountIcon /></ListItemIcon>
               <ListItemText primary="Account" />
             </ListItem>
