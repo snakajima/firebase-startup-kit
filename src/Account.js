@@ -78,6 +78,7 @@ class Account extends React.Component {
   }
 
   async handleUpdate(e) {
+    const { config } = this.props;
     console.log("handleUpdate");
     e.preventDefault();
 
@@ -92,7 +93,7 @@ class Account extends React.Component {
       },
     };
     const query = "name=" + encodeURIComponent(this.state.name);
-    const res = await fetch("https://skelton-us.firebaseapp.com/api/username?" + query, options);
+    const res = await fetch("https://" + config.projectId + ".firebaseapp.com/api/username?" + query, options);
     const json = await res.json();
     console.log("res.json()=", json);
     this.setState({label:json.result, indicator:{ error:(res.status >=400) }});

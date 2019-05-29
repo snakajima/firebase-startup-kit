@@ -49,7 +49,7 @@ class App extends React.Component {
   }
 
   render() {
-    const params = { user:this.state.user, db:db };
+    const params = { user:this.state.user, db:db, config:config };
     return (
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
