@@ -1,9 +1,13 @@
 ## Setup CircleCI
 
+Go to [CircleCI](https://circleci.com)
+
 Add your project to CircleCI
 
+![Add your project to CircleCI](./AddProject.jpg)
 
-## get FIREBASE_TOKEN
+
+## Get FIREBASE_TOKEN
 
 ```
 $  firebase login:ci
@@ -22,5 +26,11 @@ Example: firebase deploy --token "$FIREBASE_TOKEN"
 
 ## Add your token to CircleCI Environment Variables .
 
+![Add your project to CircleCI](./AddToken.jpg)
+
 
 ## Push your code, then deployment will run.
+
+```
+$git push origin master
+```
