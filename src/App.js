@@ -7,8 +7,8 @@ import Home from './Home';
 import About from './About';
 import Login from './Login';
 import Decoder from './Decoder';
-import * as firebase from "firebase/app";
-import "firebase/firestore";
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 import config from './config';
 
 firebase.initializeApp(config);
@@ -25,7 +25,7 @@ class App extends React.Component {
         async (user) => {
           this.setState({user: user});
           if (user) {
-            const refUser = db.collection("users").doc(user.uid);
+            const refUser = db.collection('users').doc(user.uid);
             var newValue = { lastAccessed:firebase.firestore.FieldValue.serverTimestamp() };
             const doc = (await refUser.get()).data();
             if (!doc || !doc.name) {

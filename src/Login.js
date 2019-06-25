@@ -1,7 +1,7 @@
 import React from 'react';
-import * as firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Redirect } from 'react-router-dom';
 import Header from './Header';
@@ -29,7 +29,7 @@ const uiConfig = {
         const { additionalUserInfo, credential } = result;
         if (additionalUserInfo && credential 
           && credential.providerId === firebase.auth.TwitterAuthProvider.PROVIDER_ID) {
-            console.log("Twitter user name=", additionalUserInfo.username);
+            console.log('Twitter user name=', additionalUserInfo.username);
         }
         return false;
       }

@@ -12,8 +12,8 @@ const styles = theme => ({
     paddingTop: theme.spacing(10),
   },
   caption: {
-    textAlign: "center",
-    width: "100%",
+    textAlign: 'center',
+    width: '100%',
   },
 });
 
