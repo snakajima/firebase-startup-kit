@@ -6,13 +6,13 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { Redirect } from 'react-router-dom';
 import Header from './Header';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     paddingTop: theme.spacing(10),
   },
-});
+}));
 
 const uiConfig = {
   // Popup signin flow rather than redirect flow.
@@ -40,7 +40,8 @@ const uiConfig = {
 };
 
 const Login = props => {
-  const { classes, match, user } = props;
+  const classes = useStyles();
+  const { match, user } = props;
   const { target, encoded } = match.params;
 
   if (!user) {
@@ -68,4 +69,4 @@ Login.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Login);
+export default Login;
