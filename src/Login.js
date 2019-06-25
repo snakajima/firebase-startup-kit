@@ -36,26 +36,24 @@ const uiConfig = {
     }
 };
 
-class Login extends React.Component {
-    render() {
-      const { classes } = this.props;
-      if (!this.props.user) {
-        return <React.Fragment>
-          <Header />
-          <div className={classes.root}>
-          <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
-          </div>
-        </React.Fragment>
-      }
-      const { match } = this.props;
-      const { target, encoded } = match.params;
-      if (encoded) {
-        return <Redirect to={"/decode/"+encoded} />
-      } else if (target) {
-        return <Redirect to={"/"+target} />
-      }
-      return <Redirect to={"/"} />
-    }
+const Login = (props) => {
+  const { classes, match, user } = props;
+  const { target, encoded } = match.params;
+
+  if (!user) {
+    return <React.Fragment>
+      <Header />
+      <div className={classes.root}>
+      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
+      </div>
+    </React.Fragment>
+  }
+  if (encoded) {
+    return <Redirect to={"/decode/"+encoded} />
+  } else if (target) {
+    return <Redirect to={"/"+target} />
+  }
+  return <Redirect to={"/"} />
 }
 
 Login.propTypes = {
