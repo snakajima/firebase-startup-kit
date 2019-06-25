@@ -22,12 +22,18 @@ function ComplexGrid(props) {
   return (
     <React.Fragment>
       <Header user={user} />
-      <Grid container justify="center" alignItems="center" direction="row" className={classes.root}>
-          <Grid className={classes.caption}>
+      <Grid
+        container
+        justify="center"
+        alignItems="center"
+        direction="row"
+        className={classes.root}
+      >
+        <Grid className={classes.caption}>
           <Typography component="h2" variant="h5" gutterBottom>
-            Welcome to Firebase Starter Kit! 
+            Welcome to Firebase Starter Kit!
           </Typography>
-          </Grid>
+        </Grid>
       </Grid>
     </React.Fragment>
   );

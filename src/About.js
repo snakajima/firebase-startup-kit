@@ -22,16 +22,22 @@ const About = props => {
   return (
     <React.Fragment>
       <Header user={user} login="/Login/target/about" />
-      <Grid container justify="center" alignItems="center" direction="row" className={classes.root}>
-          <Grid className={classes.caption}>
+      <Grid
+        container
+        justify="center"
+        alignItems="center"
+        direction="row"
+        className={classes.root}
+      >
+        <Grid className={classes.caption}>
           <Typography component="h2" variant="h5" gutterBottom>
-            Stay Hungry, Stay Foolish. 
+            Stay Hungry, Stay Foolish.
           </Typography>
-          </Grid>
+        </Grid>
       </Grid>
     </React.Fragment>
   );
-}
+};
 
 About.propTypes = {
   classes: PropTypes.object.isRequired,

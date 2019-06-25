@@ -25,18 +25,21 @@ const uiConfig = {
   ],
   callbacks: {
     // Avoid redirects after sign-in.
-    signInSuccessWithAuthResult: (result) => {
+    signInSuccessWithAuthResult: result => {
       const { additionalUserInfo, credential } = result;
-      if (additionalUserInfo && credential 
-        && credential.providerId === firebase.auth.TwitterAuthProvider.PROVIDER_ID) {
-          console.log('Twitter user name=', additionalUserInfo.username);
+      if (
+        additionalUserInfo &&
+        credential &&
+        credential.providerId === firebase.auth.TwitterAuthProvider.PROVIDER_ID
+      ) {
+        console.log('Twitter user name=', additionalUserInfo.username);
       }
       return false;
-    }
-  }
+    },
+  },
 };
 
-const Login = (props) => {
+const Login = props => {
   const { classes, match, user } = props;
   const { target, encoded } = match.params;
 
@@ -45,18 +48,21 @@ const Login = (props) => {
       <>
         <Header />
         <div className={classes.root}>
-          <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+          <StyledFirebaseAuth
+            uiConfig={uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
         </div>
       </>
-    )
+    );
   }
   if (encoded) {
-    return <Redirect to={`/decode/${encoded}`} />
+    return <Redirect to={`/decode/${encoded}`} />;
   } else if (target) {
-    return <Redirect to={`/${target}`} />
+    return <Redirect to={`/${target}`} />;
   }
-  return <Redirect to={"/"} />
-}
+  return <Redirect to={'/'} />;
+};
 
 Login.propTypes = {
   classes: PropTypes.object.isRequired,

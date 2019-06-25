@@ -19,7 +19,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import InfoIcon from '@material-ui/icons/Info';
 
-
 const styles = {
   root: {
     flexGrow: 1,
@@ -35,49 +34,62 @@ const styles = {
 
 class MyAppBar extends React.Component {
   state = {
-      drawer: false,
+    drawer: false,
   };
   handleMenu = event => {
-    this.setState({drawer:true});
+    this.setState({ drawer: true });
   };
 
   handleClose = () => {
-    this.setState({drawer:false});
+    this.setState({ drawer: false });
   };
   logout = event => {
     console.log('logout');
     firebase.auth().signOut();
   };
 
-render() {
+  render() {
     const { classes, user, login } = this.props;
 
     return (
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} onClick={this.handleMenu} color="inherit" aria-label="Menu">
+            <IconButton
+              className={classes.menuButton}
+              onClick={this.handleMenu}
+              color="inherit"
+              aria-label="Menu"
+            >
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
               Firebase Rocks!
             </Typography>
-            {
-                (user) ?
-                <Button color="inherit" onClick={this.logout}>Logout</Button>
-                : <Button color="inherit" to={login || "/login"} component={Link}>Login</Button>
-            }
+            {user ? (
+              <Button color="inherit" onClick={this.logout}>
+                Logout
+              </Button>
+            ) : (
+              <Button color="inherit" to={login || '/login'} component={Link}>
+                Login
+              </Button>
+            )}
           </Toolbar>
         </AppBar>
         <Drawer open={this.state.drawer} onClose={this.handleClose}>
           <List>
             <ListItem button to="/" component={Link}>
-              <ListItemIcon><HomeIcon /></ListItemIcon>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
               <ListItemText primary="Home" />
             </ListItem>
             <Divider />
             <ListItem button to="/about" component={Link}>
-              <ListItemIcon><InfoIcon /></ListItemIcon>
+              <ListItemIcon>
+                <InfoIcon />
+              </ListItemIcon>
               <ListItemText primary="About" />
             </ListItem>
           </List>
