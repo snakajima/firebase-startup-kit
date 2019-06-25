@@ -96,7 +96,7 @@ const MyAppBar = props => {
 };
 
 MyAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
 };
 
 export default MyAppBar;

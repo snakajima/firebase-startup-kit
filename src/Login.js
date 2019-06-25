@@ -67,7 +67,7 @@ const Login = props => {
 };
 
 Login.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
 };
 
 export default Login;
