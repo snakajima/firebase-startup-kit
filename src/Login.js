@@ -41,12 +41,14 @@ const Login = (props) => {
   const { target, encoded } = match.params;
 
   if (!user) {
-    return <React.Fragment>
-      <Header />
-      <div className={classes.root}>
-      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()}/>
-      </div>
-    </React.Fragment>
+    return (
+      <>
+        <Header />
+        <div className={classes.root}>
+          <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+        </div>
+      </>
+    )
   }
   if (encoded) {
     return <Redirect to={`/decode/${encoded}`} />
