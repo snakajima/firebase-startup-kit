@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -19,7 +19,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import InfoIcon from '@material-ui/icons/Info';
 
-const styles = {
+const useStyles = makeStyles({
   root: {
     flexGrow: 1,
   },
@@ -30,10 +30,11 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
-};
+});
 
 const MyAppBar = props => {
-  const { classes, user, login } = props;
+  const classes = useStyles();
+  const { user, login } = props;
 
   const [drawer, setDrawer] = useState(false);
   const handleMenu = event => {
@@ -98,4 +99,4 @@ MyAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MyAppBar);
+export default MyAppBar;
