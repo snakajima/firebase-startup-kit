@@ -12,7 +12,7 @@ import 'firebase/firestore';
 import config from './config';
 
 firebase.initializeApp(config);
-var db = firebase.firestore();
+const db = firebase.firestore();
 
 class App extends React.Component {
   constructor(props) {
