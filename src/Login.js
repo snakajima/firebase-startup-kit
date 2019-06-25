@@ -1,12 +1,13 @@
 import React from 'react';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/styles';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import { Redirect } from 'react-router-dom';
+
 import Header from './Header';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
