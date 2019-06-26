@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
@@ -12,22 +12,27 @@ import 'firebase/firestore';
 import config from './config';
 
 firebase.initializeApp(config);
-const db = firebase.firestore();
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { user: null, width: 0, height: 0 };
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-  }
-  componentDidMount() {
-    this.unregisterAuthObserver = firebase
+const App = props => {
+  const [user, setUser] = useState(null);
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+  const db = firebase.firestore();
+  const params = { user, db };
+
+  const updateWindowDimensions = () => {
+    setWidth(window.innerWidth);
+    setHeight(window.innerHeight);
+  };
+
+  useEffect(() => {
+    const unregisterAuthObserver = firebase
       .auth()
       .onAuthStateChanged(async user => {
-        this.setState({ user: user });
+        setUser(user);
         if (user) {
           const refUser = db.collection('users').doc(user.uid);
-          var newValue = {
+          const newValue = {
             lastAccessed: firebase.firestore.FieldValue.serverTimestamp(),
           };
           const doc = (await refUser.get()).data();
@@ -37,63 +42,57 @@ class App extends React.Component {
           await refUser.set(newValue, { merge: true });
         }
       });
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
-  }
+    updateWindowDimensions();
+    window.addEventListener('resize', updateWindowDimensions);
 
-  componentWillUnmount() {
-    this.unregisterAuthObserver();
-    window.removeEventListener('resize', this.updateWindowDimensions);
-  }
-  updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
-  }
+    return () => {
+      unregisterAuthObserver();
+      window.removeEventListener('resize', updateWindowDimensions);
+    };
+  }, [db]);
 
-  render() {
-    const params = { user: this.state.user, db: db };
-    return (
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router>
+  return (
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Route
+          exact
+          path="/"
+          render={props => <Home {...props} {...params} />}
+        />
+        <Route
+          exact
+          path="/about"
+          render={props => <About {...props} {...params} />}
+        />
+        <Route
+          exact
+          path="/login"
+          render={props => <Login {...props} {...params} />}
+        />
+        <Route
+          exact
+          path="/login/cmd/:encoded"
+          render={props => <Login {...props} {...params} />}
+        />
+        <Route
+          exact
+          path="/login/target/:target"
+          render={props => <Login {...props} {...params} />}
+        />
+        {// We need to mount the Decoder component only after the user info became available.
+        user ? (
           <Route
             exact
-            path="/"
-            render={props => <Home {...props} {...params} />}
+            path="/decode/:encoded"
+            render={props => <Decoder {...props} {...params} />}
           />
-          <Route
-            exact
-            path="/about"
-            render={props => <About {...props} {...params} />}
-          />
-          <Route
-            exact
-            path="/login"
-            render={props => <Login {...props} {...params} />}
-          />
-          <Route
-            exact
-            path="/login/cmd/:encoded"
-            render={props => <Login {...props} {...params} />}
-          />
-          <Route
-            exact
-            path="/login/target/:target"
-            render={props => <Login {...props} {...params} />}
-          />
-          {// We need to mount the Decoder component only after the user info became available.
-          this.state.user ? (
-            <Route
-              exact
-              path="/decode/:encoded"
-              render={props => <Decoder {...props} {...params} />}
-            />
-          ) : (
-            ''
-          )}
-        </Router>
-      </MuiThemeProvider>
-    );
-  }
-}
+        ) : (
+          ''
+        )}
+      </Router>
+    </MuiThemeProvider>
+  );
+};
 
 export default App;
