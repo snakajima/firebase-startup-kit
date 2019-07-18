@@ -12,7 +12,7 @@ import "firebase/firestore";
 import config from './config';
 
 firebase.initializeApp(config);
-var db = firebase.firestore();
+const db = firebase.firestore();
 
 class App extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class App extends React.Component {
           this.setState({user: user});
           if (user) {
             const refUser = db.collection("users").doc(user.uid);
-            var newValue = { lastAccessed:firebase.firestore.FieldValue.serverTimestamp() };
+            const newValue = { lastAccessed:firebase.firestore.FieldValue.serverTimestamp() };
             const doc = (await refUser.get()).data();
             if (!doc || !doc.name) {
               newValue.name = user.displayName;
