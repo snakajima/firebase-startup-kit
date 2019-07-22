@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -33,58 +33,53 @@ const styles = {
   },
 };
 
-class MyAppBar extends React.Component {
-  state = {
-      drawer: false,
-  };
-  handleMenu = event => {
-    this.setState({drawer:true});
-  };
+function MyAppBar(props) {
+  const { classes, user, login } = props;
+  const [drawer, setDrawer] = useState(false);
 
-  handleClose = () => {
-    this.setState({drawer:false});
+  const handleMenu = event => {
+    setDrawer(true);
   };
-  logout = event => {
+  const handleClose = () => {
+    setDrawer(false);
+  };
+  const logout = event => {
     console.log("logout");
     firebase.auth().signOut();
   };
 
-render() {
-    const { classes, user, login } = this.props;
-
-    return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton className={classes.menuButton} onClick={this.handleMenu} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit" className={classes.grow}>
-              Firebase Rocks!
-            </Typography>
-            {
-                (user) ?
-                <Button color="inherit" onClick={this.logout}>Logout</Button>
-                : <Button color="inherit" to={login || "/login"} component={Link}>Login</Button>
-            }
-          </Toolbar>
-        </AppBar>
-        <Drawer open={this.state.drawer} onClose={this.handleClose}>
-          <List>
-            <ListItem button to="/" component={Link}>
-              <ListItemIcon><HomeIcon /></ListItemIcon>
-              <ListItemText primary="Home" />
-            </ListItem>
-            <Divider />
-            <ListItem button to="/about" component={Link}>
-              <ListItemIcon><InfoIcon /></ListItemIcon>
-              <ListItemText primary="About" />
-            </ListItem>
-          </List>
-        </Drawer>
-      </div>
-    );
-  }
+  return (
+    <div className={classes.root}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton className={classes.menuButton} onClick={handleMenu} color="inherit" aria-label="Menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" color="inherit" className={classes.grow}>
+            Firebase Rocks!
+          </Typography>
+          {
+              user ?
+              <Button color="inherit" onClick={logout}>Logout</Button>
+              : <Button color="inherit" to={login || "/login"} component={Link}>Login</Button>
+          }
+        </Toolbar>
+      </AppBar>
+      <Drawer open={drawer} onClose={handleClose}>
+        <List>
+          <ListItem button to="/" component={Link}>
+            <ListItemIcon><HomeIcon /></ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItem>
+          <Divider />
+          <ListItem button to="/about" component={Link}>
+            <ListItemIcon><InfoIcon /></ListItemIcon>
+            <ListItemText primary="About" />
+          </ListItem>
+        </List>
+      </Drawer>
+    </div>
+  );
 }
 
 MyAppBar.propTypes = {
