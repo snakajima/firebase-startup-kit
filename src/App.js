@@ -18,7 +18,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { user:null, width:0, height:0 };
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
   componentDidMount() {
       this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
@@ -35,16 +34,10 @@ class App extends React.Component {
           }
         }
       );
-      this.updateWindowDimensions();
-      window.addEventListener('resize', this.updateWindowDimensions);
   }
     
   componentWillUnmount() {
     this.unregisterAuthObserver();
-    window.removeEventListener('resize', this.updateWindowDimensions);
-  }
-  updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
   render() {
