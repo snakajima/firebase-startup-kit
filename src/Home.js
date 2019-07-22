@@ -15,6 +15,9 @@ const styles = theme => ({
     textAlign: "center",
     width: "100%",
   },
+  h2: {
+    color: "#ff0000",
+  }
 });
 
 function ComplexGrid(props) {
@@ -25,8 +28,9 @@ function ComplexGrid(props) {
       <Grid container justify="center" alignItems="center" direction="row" className={classes.root}>
           <Grid className={classes.caption}>
           <Typography component="h2" variant="h5" gutterBottom>
-            Welcome to Firebase Starter Kit! 
+            Welcome to Firebase Starter Kit!
           </Typography>
+          <h2 className={classes.h2}>{(user) ? Buffer.from("U2F0b3NoaSBMb3ZlcyBGaXJlYmFzZSE=", 'base64').toString() : ""}</h2>
           </Grid>
       </Grid>
     </React.Fragment>
