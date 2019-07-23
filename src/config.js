@@ -1,12 +1,12 @@
 // Replace this section with the config file of your own Firebase project. 
 const firebaseConfig = {
-  apiKey: "AIzaSyD8Gvm5JpOY6QlignjLSs-V2iNkQo-VVGQ",
-  authDomain: "skelton-us.firebaseapp.com",
-  databaseURL: "https://skelton-us.firebaseio.com",
-  projectId: "skelton-us",
-  storageBucket: "skelton-us.appspot.com",
-  messagingSenderId: "1041354638035",
-  appId: "1:1041354638035:web:9e02a6ea52daf17f"
+  apiKey: "AIzaSyAWrrXYmTGmwUnTzevw7NQ5_3yFOPUb9Ns",
+  authDomain: "blog-us.firebaseapp.com",
+  databaseURL: "https://blog-us.firebaseio.com",
+  projectId: "blog-us",
+  storageBucket: "blog-us.appspot.com",
+  messagingSenderId: "1091642071033",
+  appId: "1:1091642071033:web:bad75989863759db"
 };
 
 export default firebaseConfig;
