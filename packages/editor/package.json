@@ -1,10 +1,11 @@
 {
   "name": "draft-material.ui-editor",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Draft.js editor for React+Material UI projects",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib --ignore \"_*\"",
+    "release": "npm run build && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -14,12 +15,11 @@
     "draft-js-export-markdown": "^1.3.3",
     "draft-js-import-markdown": "^1.3.3",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-dom": "^16.8.6"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/snakajima/geekout.git"
+    "url": "https://github.com/snakajima/geekout/tree/master/packages/editor"
   },
   "keywords": [
     "DraftJS",
@@ -31,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/snakajima/geekout/issues"
   },
-  "homepage": "https://github.com/snakajima/geekout#readme",
+  "homepage": "https://github.com/snakajima/geekout/blob/master/packages/editor/README.md",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.5.5",
