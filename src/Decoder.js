@@ -6,9 +6,9 @@ import Processing from './Processing';
 // such as posting a high score (when the user play before login). 
 // This is done by redirecting to "/login/cmd/{encoded}", 
 // where the encoded is an encoded "instruction" (a Json object). 
-function Decoder() {
+function Decoder(props) {
   const [redirect, setRedirect] = useState(null);
-  const { user, db, match:{params:{encoded}} } = this.props;
+  const { user, db, match:{params:{encoded}} } = props;
 
   useEffect(() => {
     const params = JSON.parse(decodeURIComponent(encoded));
