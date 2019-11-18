@@ -24,7 +24,7 @@ function Decoder(props) {
   }, [user, db, encoded]);
 
   if (redirect) {
-      return <Redirect to={redirect} />
+    return <Redirect to={redirect} />
   }
   return <Processing user={user} />
 }
